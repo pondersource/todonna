@@ -192,3 +192,10 @@ table.item-list tr:not(:last-child) td {
   border-bottom: 1px solid #375a7f !important;
   border-radius: 0 !important;
 }
+
+.notification.undo-delete {
+  position: absolute;
+  z-index: 100;
+  top:80%;left:80%;transform:translate(-50%);
+  display: none;
+}

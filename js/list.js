@@ -1,6 +1,11 @@
 const rsConvenienceButtons = document.querySelectorAll('.rs-convenience-button');
 const rsConsoleList = document.querySelector('ul#rs-console-list');
 
+const todoListContainer = document.getElementById('todo-list');
+const doneListContainer = document.getElementById('done-list');
+
+const notificationUndo = document.getElementById('notification-undo-delete');
+
 const newItemInput = document.getElementById('new-item-input');
 newItemInput.addEventListener('click', () => {
     newItemInput.classList.add('is-success');
@@ -35,12 +40,9 @@ async function addTodo(evt) {
     }
 }
 
-const todoListContainer = document.getElementById('todo-list');
-const doneListContainer = document.getElementById('done-list');
-
 function createItemRow (item, isNew) {
 
-    console.log('item: ', item);
+    // console.log('item: ', item);
 
     const tableRow = document.createElement('tr');
 
@@ -194,8 +196,8 @@ async function changeItemState(event, id) {
         let todoItem = await client.getObject(id);
         todoItem.todo_item_status = newStatus; // Update the status
 
-        console.log('newStatus: ', newStatus);
-        console.log('oldStatus: ', oldStatus);
+        // console.log('newStatus: ', newStatus);
+        // console.log('oldStatus: ', oldStatus);
 
         // Store the updated item and create a new row only after the storeObject operation succeeds
         await client.storeObject('aTodoItem', todoItem.todo_item_id, todoItem);
@@ -208,24 +210,50 @@ async function changeItemState(event, id) {
     }
 }
 
+let lastRemovedItem = null;
+
 async function removeItem(event, id) {
     const target = event.target;
     let row = target.parentNode.parentNode;
-    let newStatus = 'gone';
+    // let newStatus = 'gone';
 
     // Remove the row right away
     row.remove();
 
+    notificationUndo.style.display = 'block';
+
     try {
         let todoItem = await client.getObject(id);
-        todoItem.todo_item_status = newStatus; // Update the status
+        // todoItem.todo_item_status = newStatus; // Update the status
 
-        // Store the updated item and create a new row only after the storeObject operation succeeds
+        // Store the removed item temporarily
+        lastRemovedItem = todoItem;
+
         await client.remove(todoItem.todo_item_id);
     } catch (error) {
         console.error('Error removing item:', error);
     }
 }
+
+// Add an event listener to the undo link
+document.querySelector('.undo-delete .undo').addEventListener('click', function(event) {
+    event.preventDefault();
+
+    if (lastRemovedItem) {
+        // Restore the removed item
+        client.storeObject('aTodoItem', lastRemovedItem.todo_item_id, lastRemovedItem)
+            .then(() => {
+                console.log('Item restored, id:', lastRemovedItem.todo_item_id);
+                // Recreate the row for the restored item
+                createItemRow(lastRemovedItem);
+                // Hide the undo notification
+                notificationUndo.style.display = 'none';
+                // Clear the temporary storage
+                lastRemovedItem = null;
+            })
+            .catch((err) => console.error('Error restoring item id %s :', lastRemovedItem.todo_item_id, err));
+    }
+});
 
 function addTodoItem(newTodoItem) {
     console.log('newTodoItem: ', newTodoItem);
@@ -240,5 +268,13 @@ function addTodoItem(newTodoItem) {
 
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+  var deleteButton = document.querySelector('.undo-delete .delete');
+  if (deleteButton) {
+    deleteButton.addEventListener('click', function() {
+      this.parentElement.style.display = 'none';
+    });
+  }
+});
 
 TDN.prefs.loadTheme();
