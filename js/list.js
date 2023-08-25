@@ -5,6 +5,12 @@ const todoListContainer = document.getElementById('todo-list');
 const doneListContainer = document.getElementById('done-list');
 
 const notificationUndo = document.getElementById('notification-undo-delete');
+const versionNumberSpan = document.getElementById('version-number');
+
+const todonnaVersion = '0.0.1';
+
+versionNumberSpan.textContent = todonnaVersion;
+document.title = 'Todonna ' + todonnaVersion;
 
 const newItemInput = document.getElementById('new-item-input');
 newItemInput.addEventListener('click', () => {
@@ -128,13 +134,20 @@ const client = remoteStorage.scope('/todonna/');
 var widget = new Widget(remoteStorage, {skipInitial: true, logging: true, leaveOpen: true});
 
 widget.attach('remotestorage-widget-anchor');
-client.cache('');
+// client.cache('');
+
+remoteStorage.caching.enable('/todonna/')
 
 remoteStorage.on('connected', function() {
 
     rsConvenienceButtons.forEach(function(button) {
-        button.classList.add('is-loading');
-        button.setAttribute('title', 'Remote is Connecting');
+        // button.classList.add('is-loading');
+        button.removeAttribute('disabled');
+        button.setAttribute('title', 'Remote is Connected');
+
+        const userAddress = remoteStorage.remote.userAddress;
+        console.debug('${userAddress} connected their remote storage.');
+
     });
 
     console.log('connected!');

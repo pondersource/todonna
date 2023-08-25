@@ -84,28 +84,28 @@
                     <div class="message-header">
                         <p>Todonna <span id="version-number"></span></p>
                     </div>
-                    <div class="buttons">
-                        <button class="button is-info" id="update-button" type="button" title="Check for updates"><i class="icon-export"></i> Check for updates</button>
+                    <div class="message-body">
+                        <div class="buttons">
+                            <button class="button is-info" id="update-button" type="button" title="Check for updates"><i class="icon-export"></i> Check for updates</button>
+                        </div>
+                        <div id="update-messages"></div>
                     </div>
-                    <div id="update-messages"></div>
                 </article>
 
                 <article class="message">
                     <div class="message-header">
                         <p>Theme</p>
                     </div>
+                    <div class="message-body">
 
-                    <div class="field">
-                        <label class="radio">
-                            <input type="radio" name="theme" value="css/todonna-bulma-light.css" onclick="TDN.prefs.saveTheme(event)" checked>
-                            Light
-                        </label>
-                    </div>
-                    <div class="field">
-                        <label class="radio">
-                            <input type="radio" name="theme" value="css/todonna-bulma-dark.css" onclick="TDN.prefs.saveTheme(event)">
-                            Dark
-                        </label>
+                        <div class="field">
+                            <label class="radio">
+                                <input type="radio" name="theme" value="css/todonna-bulma-light.css" onclick="TDN.prefs.saveTheme(event)" checked> Light </label>
+                        </div>
+                        <div class="field">
+                            <label class="radio">
+                                <input type="radio" name="theme" value="css/todonna-bulma-dark.css" onclick="TDN.prefs.saveTheme(event)"> Dark </label>
+                        </div>
                     </div>
                 </article>
 
