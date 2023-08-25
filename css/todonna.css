@@ -60,7 +60,7 @@ h1 {
   width: 100%;
 }
 
-ul {
+ul#tabs {
   display: flex;
   justify-content: space-between;
   list-style: none;
@@ -68,7 +68,7 @@ ul {
   margin: 0;
 }
 
-li {
+ul#tabs li {
   flex-grow: 1;
   text-align: center;
 }
@@ -149,6 +149,10 @@ article div.field {
   padding-left: 0.5em;
 }
 
-#rs-buttons {
+#rs-form {
   padding: 0.5em !important;
+}
+
+div#rs-console, ul#rs-console {
+  text-align: left !important;
 }

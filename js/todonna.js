@@ -1,4 +1,4 @@
-const TDR = (function () {
+const TDN = (function () {
     let pages = [];
     let links = [];
 
@@ -74,40 +74,14 @@ const TDR = (function () {
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-        // your element selection and manipulation code here
-        // var element = document.getElementById("your-element-id");
-        // var rsWidget = document.querySelector('.rs-widget');
         var rsWidgetButton = document.querySelector('.rs-connect');
         var rsWidgetInput = document.querySelector("form > input[type=text]");
-        // var rsWidget = document.querySelector('#remotestorage-widget');
 
         rsWidgetInput.classList.add('input');
 
         rsWidgetButton.classList.add('button');
         rsWidgetButton.classList.add('is-success');
     });
-
-    // // Create a new observer
-    // var observer = new MutationObserver(function(mutations) {
-    //     // For each mutation
-    //     mutations.forEach(function(mutation) {
-    //         // If the addedNodes property has one or more nodes
-    //         if (mutation.addedNodes.length) {
-    //             var element = document.querySelector('.rs-connect');
-    //             if (element) {
-    //                 console.log('Element is now loaded');
-    //                 // You can now manipulate your element here
-    //                 // ...
-
-    //                 // Once you've done what you need to, you should disconnect the observer
-    //                 observer.disconnect();
-    //             }
-    //         }
-    //     });
-    // });
-
-    // // Start observing the document with the configured parameters
-    // observer.observe(document.body, { childList: true, subtree: true });
 
     return {
         openTab

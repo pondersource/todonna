@@ -44,10 +44,10 @@
 
             <div class="container">
 
-                <div id="stats-tabs" class="tab tabs">
-                    <ul>
-                        <li class="is-active"><a class="tablinks active" onclick="TDR.openTab(event, 'Todo')">Todo</a></li>
-                        <li><a id="week-tab" class="tablinks" onclick="TDR.openTab(event, 'Done')">Done</a></li>
+                <div class="tab tabs">
+                    <ul id="tabs">
+                        <li class="is-active"><a class="tablinks active" onclick="TDN.openTab(event, 'Todo')">Todo</a></li>
+                        <li><a id="week-tab" class="tablinks" onclick="TDN.openTab(event, 'Done')">Done</a></li>
                     </ul>
                 </div>
 
@@ -86,13 +86,13 @@
 
                     <div class="field">
                         <label class="radio">
-                            <input type="radio" name="theme" value="css/todonna-bulma-light.css" onclick="saveTheme(event)" checked>
+                            <input type="radio" name="theme" value="css/todonna-bulma-light.css" onclick="TDN.prefs.saveTheme(event)" checked>
                             Light
                         </label>
                     </div>
                     <div class="field">
                         <label class="radio">
-                            <input type="radio" name="theme" value="css/todonna-bulma-dark.css" onclick="saveTheme(event)">
+                            <input type="radio" name="theme" value="css/todonna-bulma-dark.css" onclick="TDN.prefs.saveTheme(event)">
                             Dark
                         </label>
                     </div>
@@ -102,7 +102,7 @@
                     <div class="message-header">
                         <p>Synchro</p>
                     </div>
-                    <div id="rs-buttons" class="block">
+                    <div id="rs-form" class="block">
                         <div id="remotestorage-widget-anchor"></div>
                         <div class="funding-links columns is-multiline">
                             <div class="column is-variable">
@@ -110,6 +110,7 @@
                             <div class="column is-variable">
                                 <a class="rs-convenience-button button is-fullwidth is-success" href="https://rs.5apps.com/apps" target="_blank" rel="noopener noreferrer" title="Connect your storage to view your connected apps authorizations" disabled>Auths</a></div>
                         </div>
+                        <div id="rs-console"><ul id="rs-console-list"><li>plop</li></ul></div>
                     </div>
                 </article>
             </div>
@@ -145,6 +146,8 @@
     </body>
 
     <script src="js/todonna.js"></script>
+    <script src="js/prefs.js"></script>
+    <script src="js/sync.js"></script>
     <script src="js/list.js"></script>
 
 
