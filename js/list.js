@@ -1,5 +1,4 @@
 const rsConvenienceButtons = document.querySelectorAll('.rs-convenience-button');
-const rsConsoleList = document.querySelector('ul#rs-console-list');
 
 const todoListContainer = document.getElementById('todo-list');
 const doneListContainer = document.getElementById('done-list');
@@ -22,12 +21,6 @@ function handleKeyPress(event) {
     if (event.keyCode === 13 || event.which === 13) {
         addTodo(event);
     }
-}
-
-function consoleEvent(event) {
-    var li = document.createElement('li');
-    li.textContent = event;
-    rsConsoleList.appendChild(li);
 }
 
 async function addTodo(evt) {
