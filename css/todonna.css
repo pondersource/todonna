@@ -1,0 +1,82 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+[data-page]{
+    position:absolute; /* or absolute if the content exceeds the height of the page */
+    width: 100%;
+    min-height: 100vh;
+    transform: translate3d(100%, 0, 0);
+    opacity: 0;
+    transition: transform 0.5s ease-in, opacity 0.5s ease-in;
+    z-index: 10;
+}
+
+[data-page].active{
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    z-index: 100;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.todo-item,
+.done-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 5px 0;
+}
+
+.done-item {
+  background-color: #f1f1f1;
+}
+
+.remove-btn,
+.add-btn {
+  cursor: pointer;
+}
+
+.container {
+  text-align: center;
+}
+
+/* CSS for making the button right-aligned */
+.item-buttons {
+  text-align: right;
+}
+
+/* CSS for making the item-text-td full width */
+.item-text-td {
+  text-align: left !important;
+  width: 100%;
+}
+
+.tablinks {
+  width: 100%;
+}
+
+ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.about {
+  text-align: left;
+}
+
+.big-logo {
+  text-align: center;
+}

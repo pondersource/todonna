@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Todonna</title>
+        <link rel="icon" type="image/png" href="img/logo.png">
+        <link id="theme-link" rel="stylesheet" type="text/css" href="css/todonna-bulma-light.css">
+        <link rel="stylesheet" type="text/css" href="css/todonna.css">
+        <script src="node_modules/remotestoragejs/release/remotestorage.js"></script>
+        <script src="node_modules/remotestorage-widget/build/widget.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/mobilohm-font.css">
+    </head>
+
+    <body>
+
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+
+                <a id="logo" href="#home" data-role="link" class="navbar-item">
+                    <img src="img/logo.png" height="28">
+                </a>
+
+                <a id="burger" href="#home" data-role="link" role="button" class="navbar-burger is-hoverable" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a href="#home" id="home" data-role="link" class="navbar-item">Todo</a>
+                    <a href="#settings" id="settings" data-role="link" class="navbar-item">Settings</a>
+                    <a href="#about" id="about" data-role="link" class="navbar-item">About</a>
+                </div>
+            </div>
+
+        </nav>
+
+        <section data-page="home" id="home" class="section active">
+
+            <div class="container">
+
+                <div id="stats-tabs" class="tab tabs">
+                    <ul>
+                        <li class="is-active"><a class="tablinks active" onclick="TDR.openTab(event, 'Todo')">Todo</a></li>
+                        <li><a id="week-tab" class="tablinks" onclick="TDR.openTab(event, 'Done')">Done</a></li>
+                    </ul>
+                </div>
+
+                <div id="Todo" class="content-container">
+                    <progress id="progress" class="progress is-small is-primary" max="100"></progress>
+                    <div class="todo-container">
+                        <table class="table" id="todo-new">
+                            <tr>
+                                <td class="item-text-td">
+                                    <input id="new-item-input" class="input" type="text" placeholder="New item">
+                                </td><td>
+                                    <button class="button is-success" onclick="addTodo(event)">Add</button>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table" id="todo-list"></table>
+                    </div>
+                </div>
+
+                <div id="Done" class="content-container" style="display: none;">
+                    <div class="done-container">
+                        <table class="table" id="done-list"></table>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <section class="section" data-page="settings" id="settings">
+            <div class="container settings">
+                <article class="message">
+                    <div class="message-header">
+                        <p>Synchro</p>
+                    </div>
+                    <div id="remotestorage-widget-anchor"></div>
+                    <div class="funding-links columns is-multiline">
+                        <div class="column is-variable">
+                            <a class="button is-fullwidth is-success" href="https://inspektor.5apps.com" target="_blank" rel="noopener noreferrer">View data</a></div>
+                        <div class="column is-variable">
+                            <a class="button is-fullwidth is-success" href="https://rs.5apps.com/apps" target="_blank" rel="noopener noreferrer">Auths</a></div>
+                    </div>
+
+                </article>
+            </div>
+        </section>
+
+        <section class="section" data-page="about" id="about">
+            <div class="container about">
+                <article class="message">
+                    <div class="message-header">
+                        <p>Todonna <span id="version-number"></span></p>
+                    </div>
+                    <div class="message-body is-size-5">
+                        <p>
+                            A simple TODO / Shopping list app without bloat or ads. If you find one of the <a href="https://yphil.frama.io/mobilohm/">MobilOhm apps</a> helpful and would like to support its development, consider making a contribution through Ko-fi or Liberapay.
+                        </p>
+                        <p>
+                            Your support helps keep this app free, open source, and ad-free.
+                        </p>
+                        <div class="block big-logo">
+                            <img class="big-logo" alt="Papier logo" src="img/logo.png"/>
+                        </div>
+                        <div class="funding-links columns is-multiline">
+                            <div class="column is-variable">
+                                <a class="button is-fullwidth is-success" href="https://ko-fi.com/yphil" target="_blank" rel="noopener noreferrer">Support us on Ko-fi</a></div>
+                            <div class="column is-variable">
+                                <a class="button is-fullwidth is-success" href="https://liberapay.com/yPhil/" target="_blank" rel="noopener noreferrer">Support us on Liberapay</a></div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </body>
+
+    <script src="js/todonna.js"></script>
+    <script src="js/list.js"></script>
+
+
+</html>
