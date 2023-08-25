@@ -44,6 +44,16 @@
 
             <div class="container">
 
+                <table class="table" id="todo-new">
+                    <tr>
+                        <td class="item-text-td">
+                            <input id="new-item-input" class="input" type="text" placeholder="New item" onkeypress="handleKeyPress(event)">
+                        </td><td>
+                            <button class="button is-success" onclick="addTodo(event)">Add</button>
+                        </td>
+                    </tr>
+                </table>
+
                 <div class="tab tabs">
                     <ul id="tabs">
                         <li class="is-active"><a class="tablinks active" onclick="TDN.openTab(event, 'Todo')">Todo</a></li>
@@ -52,17 +62,7 @@
                 </div>
 
                 <div id="Todo" class="content-container">
-                    <progress id="progress" class="progress is-small is-primary" max="100"></progress>
                     <div class="todo-container">
-                        <table class="table" id="todo-new">
-                            <tr>
-                                <td class="item-text-td">
-                                    <input id="new-item-input" class="input" type="text" placeholder="New item" onkeypress="handleKeyPress(event)">
-                                </td><td>
-                                    <button class="button is-success" onclick="addTodo(event)">Add</button>
-                                </td>
-                            </tr>
-                        </table>
                         <table class="table item-list" id="todo-list"></table>
                     </div>
                 </div>

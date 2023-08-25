@@ -187,3 +187,8 @@ table#todo-list {
 table.item-list tr:not(:last-child) td {
   border-bottom: 1px solid #000 !important;
 }
+
+.navbar .navbar-menu {
+  border-bottom: 1px solid #375a7f !important;
+  border-radius: 0 !important;
+}

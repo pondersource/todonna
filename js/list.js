@@ -63,7 +63,9 @@ function createItemRow (item, isNew) {
     tableRow.appendChild(textCell);
     tableRow.appendChild(buttonCell);
 
-    tableRow.setAttribute('title', item.todo_item_status);
+    tableRow.setAttribute('title', item.todo_item_status + ' : ' + item.todo_item_text);
+    changeStatusButton.setAttribute('title', 'Change ' + item.todo_item_status + ' item state');
+    removeButton.setAttribute('title', 'Remove ' + item.todo_item_status + ' item');
 
     tableRow.className = 'tr item-row';
 
@@ -145,9 +147,6 @@ remoteStorage.on('disconnected', function() {
 
 client.getAll('').then(objects => {
     todoListContainer.innerHTML = ''; // Clear previous content
-    document.getElementById('progress').setAttribute('value', '100');
-
-    console.log('yoo: ', objects);
 
     for (var path in objects) {
         let object = objects[path];
