@@ -199,3 +199,9 @@ table.item-list tr:not(:last-child) td {
   top:80%;left:80%;transform:translate(-50%);
   display: none;
 }
+
+span.countdown {
+  display: inline-block;
+  width: 2em;
+  text-align: center;
+}

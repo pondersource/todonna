@@ -210,17 +210,43 @@ async function changeItemState(event, id) {
     }
 }
 
+
 let lastRemovedItem = null;
+let countdownInterval;
+let countdownTimeout;
+
+function startCountdown() {
+  let countdown = 10;
+  const countdownElement = document.querySelector('.countdown');
+  countdownElement.textContent = countdown;
+
+  countdownInterval = setInterval(() => {
+    countdown--;
+    countdownElement.textContent = countdown;
+    if (countdown <= 0) {
+      stopCountdown();
+      notificationUndo.style.display = 'none';
+    }
+  }, 1000);
+}
+
+function stopCountdown() {
+  clearInterval(countdownInterval);
+  clearTimeout(countdownTimeout);
+}
+
+notificationUndo.addEventListener('mouseover', stopCountdown);
+notificationUndo.addEventListener('mouseout', startCountdown);
 
 async function removeItem(event, id) {
     const target = event.target;
     let row = target.parentNode.parentNode;
-    // let newStatus = 'gone';
 
     // Remove the row right away
     row.remove();
 
     notificationUndo.style.display = 'block';
+    startCountdown();
 
     try {
         let todoItem = await client.getObject(id);
