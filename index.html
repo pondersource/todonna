@@ -8,9 +8,9 @@
         <link rel="icon" type="image/png" href="img/logo.png">
         <script src="node_modules/remotestoragejs/release/remotestorage.js"></script>
         <script src="node_modules/remotestorage-widget/build/widget.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/todonna.css">
         <link id="theme-link" rel="stylesheet" type="text/css" href="css/todonna-bulma-light.css">
         <link rel="stylesheet" type="text/css" href="css/mobilohm-font.css">
-        <link rel="stylesheet" type="text/css" href="css/todonna.css">
     </head>
 
     <body>
@@ -75,20 +75,42 @@
 
             </div>
         </section>
+
         <section class="section" data-page="settings" id="settings">
             <div class="container settings">
+
+                <article class="message">
+                    <div class="message-header">
+                        <p>Theme</p>
+                    </div>
+
+                    <div class="field">
+                        <label class="radio">
+                            <input type="radio" name="theme" value="css/todonna-bulma-light.css" onclick="saveTheme(event)" checked>
+                            Light
+                        </label>
+                    </div>
+                    <div class="field">
+                        <label class="radio">
+                            <input type="radio" name="theme" value="css/todonna-bulma-dark.css" onclick="saveTheme(event)">
+                            Dark
+                        </label>
+                    </div>
+                </article>
+
                 <article class="message">
                     <div class="message-header">
                         <p>Synchro</p>
                     </div>
-                    <div id="remotestorage-widget-anchor"></div>
-                    <div class="funding-links columns is-multiline">
-                        <div class="column is-variable">
-                            <a class="rs-convenience-button button is-fullwidth is-success" href="https://inspektor.5apps.com" target="_blank" rel="noopener noreferrer" title="Connect your storage to view your online data" disabled>View data</a></div>
-                        <div class="column is-variable">
-                            <a class="rs-convenience-button button is-fullwidth is-success" href="https://rs.5apps.com/apps" target="_blank" rel="noopener noreferrer" title="Connect your storage to view your connected apps authorizations" disabled>Auths</a></div>
+                    <div id="rs-buttons" class="block">
+                        <div id="remotestorage-widget-anchor"></div>
+                        <div class="funding-links columns is-multiline">
+                            <div class="column is-variable">
+                                <a class="rs-convenience-button button is-fullwidth is-success" href="https://inspektor.5apps.com" target="_blank" rel="noopener noreferrer" title="Connect your storage to view your online data" disabled>View data</a></div>
+                            <div class="column is-variable">
+                                <a class="rs-convenience-button button is-fullwidth is-success" href="https://rs.5apps.com/apps" target="_blank" rel="noopener noreferrer" title="Connect your storage to view your connected apps authorizations" disabled>Auths</a></div>
+                        </div>
                     </div>
-
                 </article>
             </div>
         </section>

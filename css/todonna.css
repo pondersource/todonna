@@ -82,7 +82,7 @@ li {
 }
 
 button {
-  padding: unset !important;
+  /* padding: unset !important; */
   /* all: unset !important; */
   /* box-shadow: unset !important; */
 }
@@ -115,13 +115,18 @@ button {
   margin-bottom: 1em !important;
   font-size: unset !important;
   box-shadow: unset !important;
-
+  color: unset !important;
   * {
     font-size: unset !important;
   }
 }
 
 .rs-content {
+  padding: unset !important;
+}
+
+.rs-content button {
+  border-radius: 0.4em !important;
   padding: unset !important;
 }
 
@@ -138,4 +143,12 @@ button {
 #new-item-input::placeholder {
   color: #888; /* change color to red */
   font-style: italic; /* make text italic */
+}
+
+article div.field {
+  padding-left: 0.5em;
+}
+
+#rs-buttons {
+  padding: 0.5em !important;
 }
