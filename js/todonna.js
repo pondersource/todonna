@@ -75,12 +75,20 @@ const TDN = (function () {
 
     document.addEventListener("DOMContentLoaded", function() {
         var rsWidgetButton = document.querySelector('.rs-connect');
-        var rsWidgetInput = document.querySelector("form > input[type=text]");
+        var rsWidgetInput = document.querySelector('form > input[type=text]');
+        var rsSyncButtons = document.querySelectorAll('.rs-button');
+
+
+    const classesToRemove = ['rs-button', 'rs-button-small'];
+    const classesToAdd = ['button', 'is-success'];
+
+        rsSyncButtons.forEach(function(button) {
+            button.classList.remove(...classesToRemove);
+            button.classList.add(...classesToAdd);
+        });
 
         rsWidgetInput.classList.add('input');
-
-        rsWidgetButton.classList.add('button');
-        rsWidgetButton.classList.add('is-success');
+        rsWidgetButton.classList.add(...classesToAdd);
     });
 
     return {
