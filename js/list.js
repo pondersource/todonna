@@ -58,7 +58,8 @@ remoteStorage.access.claim('todonna', 'rw');
 const client = remoteStorage.scope('/todonna/');
 
 // Initialize
-var widget = new Widget(remoteStorage, { logging: true, leaveOpen:true });
+var widget = new Widget(remoteStorage, {skipInitial: true, logging: true, leaveOpen: true});
+
 widget.attach('remotestorage-widget-anchor');
 client.cache('');
 
@@ -120,16 +121,16 @@ remoteStorage.on('connected', function() {
     console.log('connected!');
 });
 
-remoteStorage.on('ready', function() {
+// remoteStorage.on('ready', function() {
 
-    rsConvenienceButtons.forEach(function(button) {
-        button.removeAttribute('disabled');
-        button.classList.remove('is-loading');
-        button.setAttribute('title', 'Remote is Ready');
-    });
+//     rsConvenienceButtons.forEach(function(button) {
+//         button.removeAttribute('disabled');
+//         button.classList.remove('is-loading');
+//         button.setAttribute('title', 'Remote is Ready');
+//     });
 
-    console.log('ready!');
-});
+//     console.log('ready!');
+// });
 
 remoteStorage.on('disconnected', function() {
 
