@@ -101,7 +101,7 @@ button {
     background-color: #fff !important;
     border-color: #dee2e5 !important;
     border-radius: .4em !important;
-    color: inherit !important;
+    /* color: inherit !important; */
     padding: calc(.5em - 1px) calc(.75em - 1px) !important;
 }
 
@@ -184,6 +184,6 @@ table#todo-list {
   border-collapse: separate !important;
 }
 
-table#todo-list tr:not(:last-child) td {
-  border-bottom: 1px solid #f99 !important;
+table.item-list tr:not(:last-child) td {
+  border-bottom: 1px solid #000 !important;
 }
