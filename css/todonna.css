@@ -41,9 +41,9 @@ h1 {
   cursor: pointer;
 }
 
-.container {
-  text-align: center;
-}
+/* .container { */
+/*   text-align: center; */
+/* } */
 
 /* CSS for making the button right-aligned */
 .item-buttons {
@@ -79,4 +79,63 @@ li {
 
 .big-logo {
   text-align: center;
+}
+
+button {
+  padding: unset !important;
+  /* all: unset !important; */
+  /* box-shadow: unset !important; */
+}
+
+.button.is-success {
+    background-color: #2ecc71 !important;
+    color: #fff !important;
+}
+
+/* .rs-sign-in-form input[type=text] { */
+/*   padding: unset !important; */
+/*  height: unset !important; */
+/* } */
+
+.input, .select select, .textarea {
+    background-color: #fff !important;
+    border-color: #dee2e5 !important;
+    border-radius: .4em !important;
+    color: inherit !important;
+    padding: calc(.5em - 1px) calc(.75em - 1px) !important;
+}
+
+.rs-widget {
+  border-radius: unset !important;
+  background-color: unset !important;
+  max-width: unset !important;
+  padding: unset !important;
+  margin: unset !important;
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
+  font-size: unset !important;
+  box-shadow: unset !important;
+
+  * {
+    font-size: unset !important;
+  }
+}
+
+.rs-content {
+  padding: unset !important;
+}
+
+/* #remotestorage-widget-anchor input { */
+/*   padding: initial !important; */
+/*   /\* all: unset !important; *\/ */
+/*   /\* box-shadow: unset !important; *\/ */
+/* } */
+
+/* #remotestorage-widget input[type=text] { */
+/*   height: initial !important; */
+/* } */
+
+#new-item-input::placeholder {
+  color: #888; /* change color to red */
+  font-style: italic; /* make text italic */
 }

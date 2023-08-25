@@ -6,11 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Todonna</title>
         <link rel="icon" type="image/png" href="img/logo.png">
-        <link id="theme-link" rel="stylesheet" type="text/css" href="css/todonna-bulma-light.css">
-        <link rel="stylesheet" type="text/css" href="css/todonna.css">
         <script src="node_modules/remotestoragejs/release/remotestorage.js"></script>
         <script src="node_modules/remotestorage-widget/build/widget.js"></script>
+        <link id="theme-link" rel="stylesheet" type="text/css" href="css/todonna-bulma-light.css">
         <link rel="stylesheet" type="text/css" href="css/mobilohm-font.css">
+        <link rel="stylesheet" type="text/css" href="css/todonna.css">
     </head>
 
     <body>
@@ -57,7 +57,7 @@
                         <table class="table" id="todo-new">
                             <tr>
                                 <td class="item-text-td">
-                                    <input id="new-item-input" class="input" type="text" placeholder="New item">
+                                    <input id="new-item-input" class="input" type="text" placeholder="New item" onkeypress="handleKeyPress(event)">
                                 </td><td>
                                     <button class="button is-success" onclick="addTodo(event)">Add</button>
                                 </td>
@@ -84,9 +84,9 @@
                     <div id="remotestorage-widget-anchor"></div>
                     <div class="funding-links columns is-multiline">
                         <div class="column is-variable">
-                            <a class="button is-fullwidth is-success" href="https://inspektor.5apps.com" target="_blank" rel="noopener noreferrer">View data</a></div>
+                            <a class="rs-convenience-button button is-fullwidth is-success" href="https://inspektor.5apps.com" target="_blank" rel="noopener noreferrer" title="Connect your storage to view your online data" disabled>View data</a></div>
                         <div class="column is-variable">
-                            <a class="button is-fullwidth is-success" href="https://rs.5apps.com/apps" target="_blank" rel="noopener noreferrer">Auths</a></div>
+                            <a class="rs-convenience-button button is-fullwidth is-success" href="https://rs.5apps.com/apps" target="_blank" rel="noopener noreferrer" title="Connect your storage to view your connected apps authorizations" disabled>Auths</a></div>
                     </div>
 
                 </article>

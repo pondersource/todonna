@@ -1,22 +1,30 @@
-const newItem = document.getElementById('new-item-input');
-newItem.addEventListener('click', () => {
-    newItem.classList.add('is-success');
-    newItem.classList.remove('is-danger');
+const rsConvenienceButtons = document.querySelectorAll('.rs-convenience-button');
+
+const newItemInput = document.getElementById('new-item-input');
+newItemInput.addEventListener('click', () => {
+    newItemInput.classList.add('is-success');
+    newItemInput.classList.remove('is-danger');
 });
+
+function handleKeyPress(event) {
+    if (event.keyCode === 13 || event.which === 13) {
+        addTodo(event);
+    }
+}
 
 async function addTodo(evt) {
     var id = "id" + Math.random().toString(16).slice(2);
-    if (newItem.value.length) {
+    if (newItemInput.value.length) {
         try {
             addTodoItem({...todoItem,
-                         todo_item_text: newItem.value,
+                         todo_item_text: newItemInput.value,
                          todo_item_status: 'todo',
                          todo_item_id: id});
         } catch (error) {
             console.error('Error adding todo item:', error);
         }
     } else {
-        newItem.classList.add('is-danger');
+        newItemInput.classList.add('is-danger');
     }
 }
 
@@ -84,7 +92,7 @@ function createItemRow (item, isNew) {
 
     tableRow.setAttribute('title', item.todo_item_status);
 
-    // changeStatusButton.addEventListener('click', () => changeItemState(event, item.todo_item_id));
+    removeButton.addEventListener('click', (event) => removeItem(event, item.todo_item_id));
 
     changeStatusButton.addEventListener('click', (event) => changeItemState(event, item.todo_item_id));
 
@@ -102,6 +110,36 @@ function createItemRow (item, isNew) {
 
 }
 
+remoteStorage.on('connected', function() {
+
+    rsConvenienceButtons.forEach(function(button) {
+        button.classList.add('is-loading');
+        button.setAttribute('title', 'Remote is Connecting');
+    });
+
+    console.log('connected!');
+});
+
+remoteStorage.on('ready', function() {
+
+    rsConvenienceButtons.forEach(function(button) {
+        button.removeAttribute('disabled');
+        button.classList.remove('is-loading');
+        button.setAttribute('title', 'Remote is Ready');
+    });
+
+    console.log('ready!');
+});
+
+remoteStorage.on('disconnected', function() {
+
+    rsConvenienceButtons.forEach(function(button) {
+        button.setAttribute('disabled', '');
+        button.setAttribute('title', 'Remote is Disconnected');
+    });
+
+    console.log('disconnected!');
+});
 
 client.getAll('').then(objects => {
     todoListContainer.innerHTML = ''; // Clear previous content
@@ -146,8 +184,6 @@ async function changeItemState(event, id) {
     // Remove the row right away
     row.remove();
 
-    console.log('row: ', row);
-
     try {
         let todoItem = await client.getObject(id);
         todoItem.todo_item_status = newStatus; // Update the status
@@ -160,6 +196,26 @@ async function changeItemState(event, id) {
 
         // If there's an error, re-create the original row with the old status
         createItemRow({...todoItem, todo_item_status: oldStatus});
+    }
+}
+
+async function removeItem(event, id) {
+    const target = event.target;
+    let row = target.parentNode.parentNode;
+    let oldStatus = row.getAttribute('title'); // Get the old status from the row title
+    let newStatus = oldStatus === 'done' ? 'todo' : 'done'; // Determine the new status
+
+    // Remove the row right away
+    row.remove();
+
+    try {
+        let todoItem = await client.getObject(id);
+        todoItem.todo_item_status = newStatus; // Update the status
+
+        // Store the updated item and create a new row only after the storeObject operation succeeds
+        await client.remove(todoItem.todo_item_id);
+    } catch (error) {
+        console.error('Error removing item:', error);
     }
 }
 
