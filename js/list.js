@@ -40,6 +40,8 @@ const doneListContainer = document.getElementById('done-list');
 
 function createItemRow (item, isNew) {
 
+    console.log('item: ', item);
+
     const tableRow = document.createElement('tr');
 
     const textCell = document.createElement('td');
@@ -64,6 +66,7 @@ function createItemRow (item, isNew) {
     tableRow.appendChild(buttonCell);
 
     tableRow.setAttribute('title', item.todo_item_status + ' : ' + item.todo_item_text);
+    tableRow.setAttribute('data-state', item.todo_item_status);
     changeStatusButton.setAttribute('title', 'Change ' + item.todo_item_status + ' item state');
     removeButton.setAttribute('title', 'Remove ' + item.todo_item_status + ' item');
 
@@ -179,8 +182,10 @@ function setState(newState) {
 async function changeItemState(event, id) {
     const target = event.target;
     let row = target.parentNode.parentNode;
-    let oldStatus = row.getAttribute('title'); // Get the old status from the row title
+    let oldStatus = row.dataset.state;
     let newStatus = oldStatus === 'done' ? 'todo' : 'done'; // Determine the new status
+
+    // console.log('target: ', row.dataset.state);
 
     // Remove the row right away
     row.remove();
@@ -188,6 +193,9 @@ async function changeItemState(event, id) {
     try {
         let todoItem = await client.getObject(id);
         todoItem.todo_item_status = newStatus; // Update the status
+
+        console.log('newStatus: ', newStatus);
+        console.log('oldStatus: ', oldStatus);
 
         // Store the updated item and create a new row only after the storeObject operation succeeds
         await client.storeObject('aTodoItem', todoItem.todo_item_id, todoItem);
@@ -203,8 +211,7 @@ async function changeItemState(event, id) {
 async function removeItem(event, id) {
     const target = event.target;
     let row = target.parentNode.parentNode;
-    let oldStatus = row.getAttribute('title'); // Get the old status from the row title
-    let newStatus = oldStatus === 'done' ? 'todo' : 'done'; // Determine the new status
+    let newStatus = 'gone';
 
     // Remove the row right away
     row.remove();
