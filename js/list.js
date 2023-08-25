@@ -6,7 +6,7 @@ const doneListContainer = document.getElementById('done-list');
 const notificationUndo = document.getElementById('notification-undo-delete');
 const versionNumberSpan = document.getElementById('version-number');
 
-const todonnaVersion = '0.0.1';
+const todonnaVersion = '0.0.2';
 
 versionNumberSpan.textContent = todonnaVersion;
 document.title = 'Todonna ' + todonnaVersion;
@@ -41,7 +41,11 @@ async function addTodo(evt) {
 
 function createItemRow (item, isNew) {
 
-    // console.log('item: ', item);
+    console.log('item: ', item.todo_item_id);
+
+    if (!item.todo_item_id) {
+        return;
+    }
 
     const tableRow = document.createElement('tr');
 
@@ -108,9 +112,8 @@ const aTodoItem = {
         }
 
     },
-    required: ['todo_item_text', 'todo_item_status']
+    required: ['todo_item_text', 'todo_item_status', 'todo_item_id']
 };
-
 
 // Our note object
 var todoItem = {
@@ -127,9 +130,9 @@ const client = remoteStorage.scope('/todonna/');
 var widget = new Widget(remoteStorage, {skipInitial: true, logging: true, leaveOpen: true});
 
 widget.attach('remotestorage-widget-anchor');
-// client.cache('');
+client.cache('');
 
-remoteStorage.caching.enable('/todonna/')
+// remoteStorage.caching.enable('/todonna/');
 
 remoteStorage.on('connected', function() {
 
@@ -161,7 +164,10 @@ client.getAll('').then(objects => {
 
     for (var path in objects) {
         let object = objects[path];
-        createItemRow(object);
+        // console.log('object: ', object.todo_item_id);
+        if (object.todo_item_id) {
+            createItemRow(object);
+        }
     }
 });
 

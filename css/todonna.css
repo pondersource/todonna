@@ -197,3 +197,7 @@ span.countdown {
   width: 2em;
   text-align: center;
 }
+
+.buttons {
+  margin-bottom: 0 !important;
+}
