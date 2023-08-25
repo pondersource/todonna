@@ -50,9 +50,9 @@ remoteStorage.access.claim('todonna', 'rw');
 const client = remoteStorage.scope('/todonna/');
 
 // Initialize
-var widget = new Widget(remoteStorage, { logging: false, leaveOpen:true });
+var widget = new Widget(remoteStorage, { logging: true, leaveOpen:true });
 widget.attach('remotestorage-widget-anchor');
-// client.cache('');
+client.cache('');
 
 const todoListContainer = document.getElementById('todo-list');
 const doneListContainer = document.getElementById('done-list');
@@ -102,9 +102,12 @@ function createItemRow (item, isNew) {
 
 }
 
-client.getAll('/').then(objects => {
+
+client.getAll('').then(objects => {
     todoListContainer.innerHTML = ''; // Clear previous content
     document.getElementById('progress').setAttribute('value', '100');
+
+    console.log('yoo: ', objects);
 
     for (var path in objects) {
         let object = objects[path];
