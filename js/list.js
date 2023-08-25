@@ -146,8 +146,10 @@ async function changeItemState(event, id) {
     // Remove the row right away
     row.remove();
 
+    console.log('row: ', row);
+
     try {
-        let todoItem = await client.getObject('/' + id);
+        let todoItem = await client.getObject(id);
         todoItem.todo_item_status = newStatus; // Update the status
 
         // Store the updated item and create a new row only after the storeObject operation succeeds
