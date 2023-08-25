@@ -6,7 +6,7 @@ const doneListContainer = document.getElementById('done-list');
 const notificationUndo = document.getElementById('notification-undo-delete');
 const versionNumberSpan = document.getElementById('version-number');
 
-const todonnaVersion = '0.0.2';
+const todonnaVersion = '0.0.3';
 
 versionNumberSpan.textContent = todonnaVersion;
 document.title = 'Todonna ' + todonnaVersion;
@@ -159,7 +159,7 @@ remoteStorage.on('disconnected', function() {
     console.log('disconnected!');
 });
 
-client.getAll('').then(objects => {
+client.getAll('', false).then(objects => {
     todoListContainer.innerHTML = ''; // Clear previous content
 
     for (var path in objects) {
