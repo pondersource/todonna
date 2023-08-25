@@ -156,3 +156,34 @@ article div.field {
 div#rs-console, ul#rs-console {
   text-align: left !important;
 }
+
+.item-button {
+  margin-left: 0.5em;
+}
+
+table {
+  border-radius: 0.4em !important;
+}
+
+table td {
+  vertical-align: middle !important;
+}
+
+.content table td, .content table th, .table td, .table th {
+    border: unset !important;
+    border-width: 0 !important;
+    /* padding: .5em .75em; */
+    /* vertical-align: top; */
+}
+
+.item-row th {
+  border-width: 1px !important;
+}
+
+table#todo-list {
+  border-collapse: separate !important;
+}
+
+table#todo-list tr:not(:last-child) td {
+  border-bottom: 1px solid #f99 !important;
+}

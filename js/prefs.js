@@ -33,8 +33,6 @@ TDN.prefs = (function () {
 
     function loadTheme() {
 
-        console.log('localStorage: ', localStorage.getItem('todonna-theme'));
-
         let selectedTheme = localStorage.getItem('todonna-theme') || 'css/todonna-bulma-light.css';
 
         document.querySelector('input[name="theme"][value="' + selectedTheme + '"]').checked = true;
@@ -43,12 +41,7 @@ TDN.prefs = (function () {
 
     }
 
-    function testIIfe (){
-        console.log('prefs!');
-    }
-
     return {
-        testIIfe,
         loadTheme,
         saveTheme
     };

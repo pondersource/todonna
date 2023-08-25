@@ -91,12 +91,6 @@
       "src": "websymbols"
     },
     {
-      "uid": "a6267a0b7262e1deffcc83076bc0e197",
-      "css": "trash",
-      "code": 61571,
-      "src": "mfglabs"
-    },
-    {
       "uid": "1e77a2yvsq3owssduo2lcgsiven57iv5",
       "css": "pencil",
       "code": 59406,
@@ -125,6 +119,12 @@
       "css": "check-true",
       "code": 59407,
       "src": "fontawesome"
+    },
+    {
+      "uid": "2cc73cc335f054682c04fe63439c4dcb",
+      "css": "trash",
+      "code": 59405,
+      "src": "linecons"
     }
   ]
 }

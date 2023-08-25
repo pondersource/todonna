@@ -19,8 +19,6 @@ function consoleEvent(event) {
     rsConsoleList.appendChild(li);
 }
 
-consoleEvent('yoola');
-
 async function addTodo(evt) {
     var id = "id" + Math.random().toString(16).slice(2);
     if (newItemInput.value.length) {
@@ -36,6 +34,59 @@ async function addTodo(evt) {
         newItemInput.classList.add('is-danger');
     }
 }
+
+const todoListContainer = document.getElementById('todo-list');
+const doneListContainer = document.getElementById('done-list');
+
+function createItemRow (item, isNew) {
+
+    const tableRow = document.createElement('tr');
+
+    const textCell = document.createElement('td');
+    textCell.className = 'item-text-td'; // Adding the class for full width
+    textCell.textContent = item.todo_item_text;
+
+    const buttonCell = document.createElement('td');
+    buttonCell.className = 'item-buttons is-flex'; // Adding the class for right alignment
+    const changeStatusButton = document.createElement('button');
+    changeStatusButton.className = 'button is-medium item-button';
+    // changeStatusButton.textContent = 'X';
+    const removeButton = document.createElement('button');
+    removeButton.className = 'button is-medium icon-trash item-button';
+
+    const changeStatusButtonIconClass = item.todo_item_status == 'todo' ? ['icon-check-false', 'item-todo'] : ['icon-check-true', 'item-done'];
+
+    changeStatusButton.classList.add(...changeStatusButtonIconClass);
+
+    buttonCell.appendChild(removeButton);
+    buttonCell.appendChild(changeStatusButton);
+    tableRow.appendChild(textCell);
+    tableRow.appendChild(buttonCell);
+
+    tableRow.setAttribute('title', item.todo_item_status);
+
+    tableRow.className = 'tr item-row';
+
+    removeButton.addEventListener('click', (event) => removeItem(event, item.todo_item_id));
+
+    changeStatusButton.addEventListener('click', (event) => changeItemState(event, item.todo_item_id));
+
+    if (item.todo_item_status == 'todo') {
+
+        if (isNew) {
+            todoListContainer.insertBefore(tableRow, todoListContainer.firstChild);
+        } else {
+            todoListContainer.appendChild(tableRow);
+        }
+
+    } else {
+        doneListContainer.appendChild(tableRow);
+    }
+
+}
+
+// RS
+
 
 const aTodoItem = {
     type: 'object',
@@ -72,54 +123,6 @@ var widget = new Widget(remoteStorage, {skipInitial: true, logging: true, leaveO
 widget.attach('remotestorage-widget-anchor');
 client.cache('');
 
-const todoListContainer = document.getElementById('todo-list');
-const doneListContainer = document.getElementById('done-list');
-
-function createItemRow (item, isNew) {
-
-    const tableRow = document.createElement('tr');
-
-    const textCell = document.createElement('td');
-    textCell.className = 'item-text-td'; // Adding the class for full width
-    textCell.textContent = item.todo_item_text;
-
-    const buttonCell = document.createElement('td');
-    buttonCell.className = 'item-buttons is-flex'; // Adding the class for right alignment
-    const changeStatusButton = document.createElement('button');
-    changeStatusButton.className = 'button is-small';
-    // changeStatusButton.textContent = 'X';
-    const removeButton = document.createElement('button');
-    removeButton.className = 'button is-small icon-trash';
-
-    const changeStatusButtonIconClass = item.todo_item_status == 'todo' ? 'icon-check-false' : 'icon-check-true';
-
-    changeStatusButton.classList.add(changeStatusButtonIconClass);
-
-    buttonCell.appendChild(removeButton);
-    buttonCell.appendChild(changeStatusButton);
-    tableRow.appendChild(textCell);
-    tableRow.appendChild(buttonCell);
-
-    tableRow.setAttribute('title', item.todo_item_status);
-
-    removeButton.addEventListener('click', (event) => removeItem(event, item.todo_item_id));
-
-    changeStatusButton.addEventListener('click', (event) => changeItemState(event, item.todo_item_id));
-
-    if (item.todo_item_status == 'todo') {
-
-        if (isNew) {
-            todoListContainer.insertBefore(tableRow, todoListContainer.firstChild);
-        } else {
-            todoListContainer.appendChild(tableRow);
-        }
-
-    } else {
-        doneListContainer.appendChild(tableRow);
-    }
-
-}
-
 remoteStorage.on('connected', function() {
 
     rsConvenienceButtons.forEach(function(button) {
@@ -129,17 +132,6 @@ remoteStorage.on('connected', function() {
 
     console.log('connected!');
 });
-
-// remoteStorage.on('ready', function() {
-
-//     rsConvenienceButtons.forEach(function(button) {
-//         button.removeAttribute('disabled');
-//         button.classList.remove('is-loading');
-//         button.setAttribute('title', 'Remote is Ready');
-//     });
-
-//     console.log('ready!');
-// });
 
 remoteStorage.on('disconnected', function() {
 
@@ -244,5 +236,3 @@ function addTodoItem(newTodoItem) {
 
 
 TDN.prefs.loadTheme();
-
-TDN.prefs.testIIfe();
