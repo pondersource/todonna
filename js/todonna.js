@@ -20,6 +20,14 @@ const TDN = (function () {
         var burger = document.querySelector('.navbar-burger');
         var menu = document.querySelector('#' + burger.dataset.target);
 
+        [].forEach.call(links, function(link){
+            if (link.href.split("#")[1] === id){
+                link.classList.add('active-link');
+            } else {
+                link.classList.remove('active-link');
+            }
+        });
+
         if (ev.currentTarget.id == 'burger' || ev.currentTarget.id == 'logo') {
             burger.classList.toggle('is-active');
             menu.classList.toggle('is-active');

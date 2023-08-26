@@ -201,3 +201,7 @@ span.countdown {
 .buttons {
   margin-bottom: 0 !important;
 }
+
+.active-link {
+    color: #1abc9c !important; /* replace with your desired color */
+}
