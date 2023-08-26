@@ -15,6 +15,8 @@
 .icon-trash:before { content: '\e80d'; } /* '' */
 .icon-pencil:before { content: '\e80e'; } /* '' */
 .icon-check-true:before { content: '\e80f'; } /* '' */
+.icon-install:before { content: '\e810'; } /* '' */
+.icon-update:before { content: '\e811'; } /* '' */
 .icon-check-false:before { content: '\f096'; } /* '' */
 .icon-html5:before { content: '\f13b'; } /* '' */
 .icon-circle:before { content: '\f192'; } /* '' */

@@ -15,7 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-const todonnaVersion = '0.1.0';
+const todonnaVersion = '0.1.1';
+let deferredPrompt;
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
@@ -56,5 +57,30 @@ function updateServiceWorker() {
         console.log('Service worker is not supported by the browser.');
     }
 }
+
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+    // Update the install UI to notify the user app can be installed
+    document.querySelector('.install-button').style.display = 'block';
+});
+
+document.querySelector('.install-button').addEventListener('click', (e) => {
+    // Hide the install button
+    document.querySelector('.install-button').style.display = 'none';
+    // Show the prompt
+    deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+        } else {
+            console.log('User dismissed the install prompt');
+        }
+    });
+});
 
 document.getElementById('update-button').addEventListener('click', updateServiceWorker);
