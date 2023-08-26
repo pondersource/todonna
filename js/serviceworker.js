@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-const todonnaVersion = '0.1.1';
+const todonnaVersion = '0.1.2';
 let deferredPrompt;
 
 if ('serviceWorker' in navigator) {
