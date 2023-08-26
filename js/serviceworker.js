@@ -15,7 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-const todonnaVersion = '0.1.2';
+
+const todonnaVersion = '0.1.3';
 let deferredPrompt;
 
 if ('serviceWorker' in navigator) {
@@ -60,27 +61,50 @@ function updateServiceWorker() {
 
 
 window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent the mini-infobar from appearing on mobile
-    e.preventDefault();
     // Stash the event so it can be triggered later.
     deferredPrompt = e;
     // Update the install UI to notify the user app can be installed
     document.querySelector('#install-button').style.display = 'block';
 });
 
+window.addEventListener('appinstalled', (evt) => {
+  // App was installed
+  document.querySelector('#install-button').textContent = 'Uninstall';
+  document.querySelector('#install-button').title = 'Uninstall Todonna';
+  document.querySelector('#update-button').disabled = false;
+});
+
 document.querySelector('#install-button').addEventListener('click', (e) => {
-    // Hide the install button
-    document.querySelector('#install-button').style.display = 'none';
-    // Show the prompt
-    deferredPrompt.prompt();
-    // Wait for the user to respond to the prompt
-    deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted the install prompt');
-        } else {
-            console.log('User dismissed the install prompt');
-        }
-    });
+    // If the app is installed, uninstall it
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+        window.navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister();
+          }
+        });
+        e.target.textContent = 'Install';
+        e.target.title = 'Install Todonna';
+    } else {
+        // Show the prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+            } else {
+                console.log('User dismissed the install prompt');
+            }
+        });
+    }
 });
 
 document.getElementById('update-button').addEventListener('click', updateServiceWorker);
+
+// Check if the app is already installed
+if (window.matchMedia('(display-mode: standalone)').matches) {
+  document.querySelector('#install-button').textContent = 'Uninstall';
+  document.querySelector('#install-button').title = 'Uninstall Todonna';
+  document.querySelector('#update-button').disabled = false;
+} else {
+  document.querySelector('#update-button').disabled = true;
+}
