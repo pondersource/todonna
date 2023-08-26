@@ -65,12 +65,12 @@ window.addEventListener('beforeinstallprompt', (e) => {
     // Stash the event so it can be triggered later.
     deferredPrompt = e;
     // Update the install UI to notify the user app can be installed
-    document.querySelector('.install-button').style.display = 'block';
+    document.querySelector('#install-button').style.display = 'block';
 });
 
-document.querySelector('.install-button').addEventListener('click', (e) => {
+document.querySelector('#install-button').addEventListener('click', (e) => {
     // Hide the install button
-    document.querySelector('.install-button').style.display = 'none';
+    document.querySelector('#install-button').style.display = 'none';
     // Show the prompt
     deferredPrompt.prompt();
     // Wait for the user to respond to the prompt
