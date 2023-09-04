@@ -107,6 +107,7 @@ button {
 
 .rs-widget {
   border-radius: unset !important;
+  position: unset !important;
   background-color: unset !important;
   max-width: unset !important;
   padding: unset !important;
