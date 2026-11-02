@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const todonnaVersion = '0.1.3';
+const todonnaVersion = '0.1.4';
 let deferredPrompt;
 
 if ('serviceWorker' in navigator) {
@@ -86,6 +86,10 @@ document.querySelector('#install-button').addEventListener('click', (e) => {
         e.target.title = 'Install Todonna';
     } else {
         // Show the prompt
+        if (!deferredPrompt) {
+            document.getElementById('update-messages').textContent = 'Use your browser menu to install Todonna or add it to your home screen.';
+            return;
+        }
         deferredPrompt.prompt();
         // Wait for the user to respond to the prompt
         deferredPrompt.userChoice.then((choiceResult) => {

@@ -1,11 +1,22 @@
-pages:
+image: node:22-bookworm
+
+stages:
+  - test
+  - deploy
+
+browser-tests:
+  stage: test
+  script:
+    - npm ci
+    - npx playwright install --with-deps chromium
+    - npm test
+
+create-pages:
   stage: deploy
   script:
-  - mkdir .public
-  - cp -rv * .public
-  - mv .public public
-  artifacts:
-    paths:
-    - public
-  only:
-  - master
+    - npm ci
+    - npm run build
+  pages:
+    publish: public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

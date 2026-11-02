@@ -1,4 +1,4 @@
-const cacheName = 'todonna-cache-v1';
+const cacheName = 'todonna-cache-v2';
 
 const urlsToCache = [
     './css/bulma.css',
@@ -24,8 +24,8 @@ const urlsToCache = [
     './js/sync.js',
     './js/todonna.js',
     './manifest.json',
-    './node_modules/remotestorage-widget/build/widget.js',
-    './node_modules/remotestoragejs/release/remotestorage.js',
+    './vendor/widget.js',
+    './vendor/remotestorage.js',
 ];
 
 self.addEventListener('install', (event) => {
@@ -70,7 +70,9 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.open(cacheName).then((cache) => {
             return fetch(event.request).then((response) => {
-                cache.put(event.request, response.clone());
+                if (event.request.method === 'GET' && new URL(event.request.url).origin === self.location.origin && response.ok) {
+                    cache.put(event.request, response.clone());
+                }
                 return response;
             }).catch(() => {
                 return caches.match(event.request);

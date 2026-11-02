@@ -25,10 +25,12 @@ async function addTodo(evt) {
     var id = "id" + Math.random().toString(16).slice(2);
     if (newItemInput.value.length) {
         try {
-            addTodoItem({...todoItem,
+            await addTodoItem({...todoItem,
                          todo_item_text: newItemInput.value,
                          todo_item_status: 'todo',
                          todo_item_id: id});
+            newItemInput.value = '';
+            newItemInput.focus();
         } catch (error) {
             console.error('Error adding todo item:', error);
         }
@@ -291,16 +293,11 @@ document.querySelector('.undo-delete .undo').addEventListener('click', function(
     }
 });
 
-function addTodoItem(newTodoItem) {
+async function addTodoItem(newTodoItem) {
     console.log('newTodoItem: ', newTodoItem);
 
+    await client.storeObject('aTodoItem', newTodoItem.todo_item_id, newTodoItem);
     createItemRow(newTodoItem, true);
-
-    client.storeObject('aTodoItem', newTodoItem.todo_item_id, newTodoItem)
-        .then(() => {
-            console.log('New Todo Item, id:', newTodoItem.todo_item_id);
-        })
-        .catch((err) => console.error('Error saving todo_item id %s :', newTodoItem.todo_item_id, err));
 
 }
 
