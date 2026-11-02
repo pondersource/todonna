@@ -6,7 +6,8 @@
   "name": "todonna",
   "private": true,
   "devDependencies": {
-    "@playwright/test": "^1.64.1"
+    "@playwright/test": "^1.64.1",
+    "armadietto": "^0.6.6"
   },
   "scripts": {
     "build": "node scripts/build.cjs",

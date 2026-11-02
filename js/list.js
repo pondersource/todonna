@@ -47,7 +47,10 @@ function createItemRow (item, isNew) {
         return;
     }
 
+    removeItemRow(item.todo_item_id);
+
     const tableRow = document.createElement('tr');
+    tableRow.dataset.itemId = item.todo_item_id;
 
     const textCell = document.createElement('td');
     textCell.className = 'item-text-td'; // Adding the class for full width
@@ -93,6 +96,12 @@ function createItemRow (item, isNew) {
         doneListContainer.appendChild(tableRow);
     }
 
+}
+
+function removeItemRow(id) {
+    document.querySelectorAll('.item-row').forEach(row => {
+        if (row.dataset.itemId === id) row.remove();
+    });
 }
 
 // RS
@@ -161,6 +170,7 @@ remoteStorage.on('disconnected', function() {
 
 client.getAll('', false).then(objects => {
     todoListContainer.innerHTML = ''; // Clear previous content
+    doneListContainer.innerHTML = '';
 
     for (var path in objects) {
         let object = objects[path];
@@ -181,11 +191,10 @@ client.declareType('aTodoItem', aTodoItem);
 //
 // Documentation: https://remotestoragejs.readthedocs.io/en/latest/js-api/base-client.html#change-events
 client.on('change', (event) => {
-    if (event.relativePath === 'appstate') {
-        // appstate = event.newValue;
-        // document.getElementById('choice').innerHTML = appstate.cake_choice;
-    }
-    // console.log('data was added, updated, or removed:', event);
+    const id = event.newValue?.todo_item_id || event.oldValue?.todo_item_id;
+    if (!id) return;
+    removeItemRow(id);
+    if (event.newValue) createItemRow(event.newValue);
 });
 
 // Documentation: https://remotestoragejs.readthedocs.io/en/latest/js-api/base-client.html#storeObject

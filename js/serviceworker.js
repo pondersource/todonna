@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const todonnaVersion = '0.1.4';
+const todonnaVersion = '0.1.5';
 let deferredPrompt;
 
 if ('serviceWorker' in navigator) {
