@@ -132,6 +132,7 @@ var todoItem = {
 
 // Construct and dependency inject
 const remoteStorage = new RemoteStorage({logging: false, changeEvents: { local: true, window: true, remote: true, conflicts: true }});
+remoteStorage.setApiKeys(storageApiKeys);
 remoteStorage.access.claim('todonna', 'rw');
 const client = remoteStorage.scope('/todonna/');
 

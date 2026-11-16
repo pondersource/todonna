@@ -26,6 +26,7 @@ test('retrieves existing todos on a fresh device and reconciles remote updates a
   try {
     await page.goto('http://127.0.0.1:8106/');
     await page.getByRole('link', { name: 'Settings', exact: true }).click();
+    await page.getByRole('button', { name: 'RemoteStorage', exact: true }).click();
     await page.getByPlaceholder('user@provider.com').fill(username + '@localhost:8111');
     await page.getByRole('button', { name: 'Connect', exact: true }).click();
     await page.getByLabel(`Enter the ${username} account's password`).fill(password);
