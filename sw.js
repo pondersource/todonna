@@ -1,4 +1,4 @@
-const cacheName = 'todonna-cache-v7';
+const cacheName = 'todonna-cache-v8';
 
 const urlsToCache = [
     './css/bulma.css',
@@ -36,7 +36,7 @@ self.addEventListener('install', (event) => {
                 console.log('Opened cache');
                 return Promise.all(
                     urlsToCache.map(url => {
-                        return fetch(url).then(response => {
+                        return fetch(url, { cache: 'reload' }).then(response => {
                             if (!response.ok) {
                                 throw new Error('Network response was not ok');
                             }
