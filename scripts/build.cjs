@@ -10,6 +10,7 @@ fs.mkdirSync(path.join(output, 'vendor'));
 for (const [source, name] of [
   ['remotestoragejs/release/remotestorage.js', 'remotestorage.js'],
   ['remotestorage-widget/build/widget.js', 'widget.js'],
+  ['@pondersource/rs-apps/index.cjs', 'rs-apps.js'],
 ]) {
   fs.copyFileSync(path.join(__dirname, '../node_modules', source), path.join(output, 'vendor', name));
 }

@@ -1,4 +1,4 @@
-const cacheName = 'todonna-cache-v8';
+const cacheName = 'todonna-cache-v9';
 
 const urlsToCache = [
     './css/bulma.css',
@@ -27,6 +27,7 @@ const urlsToCache = [
     './manifest.json',
     './vendor/widget.js',
     './vendor/remotestorage.js',
+    './vendor/rs-apps.js',
 ];
 
 self.addEventListener('install', (event) => {

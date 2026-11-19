@@ -131,10 +131,11 @@ var todoItem = {
 };
 
 // Construct and dependency inject
-const remoteStorage = new RemoteStorage({logging: false, changeEvents: { local: true, window: true, remote: true, conflicts: true }});
+const remoteStorage = new RemoteStorage({modules: [PonderSourceStorage.scopedModule('todonna', ['getAll', 'getObject', 'storeObject', 'remove', 'on', 'cache'], { aTodoItem, AppState: { type: 'object' } })], logging: false, changeEvents: { local: true, window: true, remote: true, conflicts: true }});
 remoteStorage.setApiKeys(storageApiKeys);
 remoteStorage.access.claim('todonna', 'rw');
-const client = remoteStorage.scope('/todonna/');
+const client = remoteStorage.todonna;
+PonderSourceStorage.attachSolid(remoteStorage);
 
 // Initialize
 var widget = new Widget(remoteStorage, {skipInitial: true, logging: true, leaveOpen: true});
@@ -186,7 +187,7 @@ client.getAll('', false).then(objects => {
 //
 // Documentation: https://remotestoragejs.readthedocs.io/en/latest/js-api/base-client.html#declareType
 // client.declareType('AppState', AppState);
-client.declareType('aTodoItem', aTodoItem);
+
 
 // React to application state changes from RS
 //
@@ -200,7 +201,7 @@ client.on('change', (event) => {
 
 // Documentation: https://remotestoragejs.readthedocs.io/en/latest/js-api/base-client.html#storeObject
 function setState(newState) {
-    client.storeObject('AppState', 'appstate', newState);
+    return client.storeObject('AppState', 'appstate', newState);
 }
 
 async function changeItemState(event, id) {
