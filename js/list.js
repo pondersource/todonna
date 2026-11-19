@@ -135,10 +135,13 @@ const remoteStorage = new RemoteStorage({modules: [PonderSourceStorage.scopedMod
 remoteStorage.setApiKeys(storageApiKeys);
 remoteStorage.access.claim('todonna', 'rw');
 const client = remoteStorage.todonna;
-PonderSourceStorage.attachSolid(remoteStorage);
+
 
 // Initialize
-var widget = new Widget(remoteStorage, {skipInitial: true, logging: true, leaveOpen: true});
+var widget = new Widget(remoteStorage, {
+  solidProviders: { allowAnyProvider: true },
+  skipInitial: true, logging: true, leaveOpen: true
+});
 
 widget.attach('remotestorage-widget-anchor');
 client.cache('');
