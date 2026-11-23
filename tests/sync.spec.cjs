@@ -1,10 +1,11 @@
 const { test, expect } = require('@playwright/test');
 
-test('retrieves existing todos on a fresh device and reconciles remote updates and deletion', async ({ browser, request }) => {
+test('retrieves existing todos on a fresh device and reconciles remote updates and deletion', async ({ browser, request, baseURL }) => {
   test.setTimeout(60000);
   const username = 'sync' + Date.now();
   const password = 'disposable-test-password';
   const storage = 'http://localhost:8111';
+  const appUrl = new URL(baseURL);
   const signup = await request.post(storage + '/signup', {
     form: { username, password, email: 'test@example.invalid' },
   });
@@ -13,7 +14,7 @@ test('retrieves existing todos on a fresh device and reconciles remote updates a
   // Seed data on the provider before this browser has any local cache.
   const auth = await request.post(storage + '/oauth', {
     maxRedirects: 0,
-    form: { username, password, client_id: 'http://127.0.0.1:8106', redirect_uri: 'http://127.0.0.1:8106/', response_type: 'token', scope: 'todonna:rw', allow: 'Allow' },
+    form: { username, password, client_id: appUrl.origin, redirect_uri: appUrl.href, response_type: 'token', scope: 'todonna:rw', allow: 'Allow' },
   });
   const token = decodeURIComponent(auth.headers().location.match(/access_token=([^&]+)/)[1]);
   const headers = { Authorization: `Bearer ${token}` };
@@ -22,9 +23,11 @@ test('retrieves existing todos on a fresh device and reconciles remote updates a
   expect((await put(item)).ok()).toBeTruthy();
 
   const context = await browser.newContext();
+  if (appUrl.protocol === 'https:')
+    await context.grantPermissions(['local-network-access'], { origin: appUrl.origin });
   const page = await context.newPage();
   try {
-    await page.goto('http://127.0.0.1:8106/');
+    await page.goto(appUrl.href);
     await page.getByRole('link', { name: 'Settings', exact: true }).click();
     await page.getByRole('button', { name: 'RemoteStorage', exact: true }).click();
     await page.getByPlaceholder('user@provider.com').fill(username + '@localhost:8111');
