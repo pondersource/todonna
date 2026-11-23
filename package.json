@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "remotestorage-widget": "file:vendor/remotestorage-widget-1.8.2-pondersource.2-preview.6.tgz",
-    "remotestoragejs": "file:vendor/remotestoragejs-2.0.0-beta.10-pondersource.7-preview.6.tgz",
+    "remotestorage-widget": "file:vendor/remotestorage-widget-1.8.2-pondersource.3-preview.7.tgz",
+    "remotestoragejs": "file:vendor/remotestoragejs-2.0.0-beta.10-pondersource.8-preview.7.tgz",
     "@pondersource/rs-apps": "file:vendor/pondersource-rs-apps-1.0.0.tgz"
   },
   "name": "todonna",
