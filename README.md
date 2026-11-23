@@ -12,6 +12,12 @@ Your support helps keep this app free, open source, and ad-free.
 
 ## Ponder Source fork
 
+Upstream source: [todonna/todonna.gitlab.io](https://gitlab.com/todonna/todonna.gitlab.io).
+The [GitHub review mirror](https://github.com/pondersource/todonna) preserves the
+[existing Ponder Source GitLab fork](https://gitlab.com/pondersource/todonna.gitlab.io)
+history. New experimental backend changes are reviewed in GitHub branches; this
+mirror does not switch hosting or deploy the app.
+
 This fork is intended for https://todonna.pondersource.com, deployed by GitLab
 Pages from the default branch. With Node.js 22, run `npm ci`, `npm test`, and
 `npm run build`. The build publishes only the app and its two locked vendor
