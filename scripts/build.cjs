@@ -9,7 +9,11 @@ for (const name of ['index.html', 'manifest.json', 'sw.js', 'css', 'font', 'img'
 fs.mkdirSync(path.join(output, 'vendor'));
 for (const [source, name] of [
   ['remotestoragejs/release/remotestorage.js', 'remotestorage.js'],
+  ['remotestoragejs/release/remotestorage-all.js.LICENSE.txt', 'remotestorage-all.js.LICENSE.txt'],
+  ['remotestoragejs/release/remotestorage-all.js.map', 'remotestorage-all.js.map'],
   ['remotestorage-widget/build/widget.js', 'widget.js'],
+  ['remotestorage-widget/build/widget.js.LICENSE.txt', 'widget.js.LICENSE.txt'],
+  ['remotestorage-widget/build/widget.js.map', 'widget.js.map'],
   ['@pondersource/rs-apps/index.cjs', 'rs-apps.js'],
 ]) {
   fs.copyFileSync(path.join(__dirname, '../node_modules', source), path.join(output, 'vendor', name));
