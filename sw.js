@@ -1,4 +1,4 @@
-const cacheName = 'todonna-cache-v10';
+const cacheName = 'todonna-cache-v11';
 
 const urlsToCache = [
     './css/bulma.css',
@@ -19,6 +19,7 @@ const urlsToCache = [
     './img/logo.png',
     './index.html',
     './js/list.js',
+    './js/standalone-list.js',
     './js/storage-providers.js',
     './js/prefs.js',
     './js/serviceworker.js',

@@ -18,3 +18,4 @@ for (const [source, name] of [
 ]) {
   fs.copyFileSync(path.join(__dirname, '../node_modules', source), path.join(output, 'vendor', name));
 }
+require('./build-atomic.cjs');

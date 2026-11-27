@@ -51,9 +51,9 @@
                 <table class="table" id="todo-new">
                     <tr>
                         <td class="item-text-td">
-                            <input id="new-item-input" class="input" type="text" placeholder="New item" onkeypress="handleKeyPress(event)">
+                            <input id="new-item-input" class="input" type="text" placeholder="New item">
                         </td><td>
-                            <button class="button is-success" onclick="addTodo(event)">Add</button>
+                            <button class="button is-success" id="add-item">Add</button>
                         </td>
                     </tr>
                 </table>
@@ -180,5 +180,6 @@
     <script src="js/sync.js"></script>
     <script src="js/storage-providers.js"></script>
     <script src="js/list.js"></script>
+    <script src="js/standalone-list.js"></script>
 
 </html>
