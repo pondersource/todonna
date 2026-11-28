@@ -1,0 +1,55 @@
+name: Verify Todonna on GitLab Pages
+on:
+  push:
+    branches: [verify-todonna-gitlab-pages]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Compare GitLab and GitHub source history
+        run: |
+          git ls-remote --symref https://gitlab.com/pondersource/todonna.gitlab.io.git HEAD
+          git fetch --no-tags https://gitlab.com/pondersource/todonna.gitlab.io.git HEAD
+          git log -1 --format='GitLab default branch: %h %s' FETCH_HEAD
+          git log -1 --format='GitHub branch being migrated: %h %s' b7c1caf69e12474ac30a6259190f3e33d06bf2f3
+          git rev-list --left-right --count FETCH_HEAD...b7c1caf69e12474ac30a6259190f3e33d06bf2f3
+          git log --format='%m %h %s' --left-right -20 FETCH_HEAD...b7c1caf69e12474ac30a6259190f3e33d06bf2f3
+          git show FETCH_HEAD:.gitlab-ci.yml || true
+
+      - name: Check the public app and identify its Pages host
+        if: always()
+        run: |
+          getent ahostsv4 todonna.pondersource.com
+          curl --fail --silent --show-error --location --max-time 30             --dump-header "$RUNNER_TEMP/todonna-headers"             --output "$RUNNER_TEMP/todonna-live.html"             https://todonna.pondersource.com/
+          grep -Ei '^(HTTP/|location:|server:|x-gitlab-|x-github-)' "$RUNNER_TEMP/todonna-headers" || true
+          grep -i '<title' "$RUNNER_TEMP/todonna-live.html"
+          grep -iE '<script|storage-widget' "$RUNNER_TEMP/todonna-live.html" | cut -c1-250
+          if curl --fail --silent --show-error --location --max-time 15             https://todonna.pondersource.com/vendor/widget.js -o "$RUNNER_TEMP/todonna-widget.js"; then
+            sha256sum "$RUNNER_TEMP/todonna-widget.js"
+          fi
+
+      - uses: actions/setup-node@v4
+        if: always()
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Exercise the public app against disposable browser storage
+        if: always()
+        env:
+          TODONNA_URL: https://todonna.pondersource.com/
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          npm test
