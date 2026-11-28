@@ -10,12 +10,14 @@ browser-tests:
     - npm ci
     - npx playwright install --with-deps chromium
     - npm test
+    - sha384sum -c scripts/atomic-release.sha384
 
 create-pages:
   stage: deploy
   script:
     - npm ci
     - npm run build
+    - sha384sum -c scripts/atomic-release.sha384
   pages:
     publish: public
   rules:
